@@ -19,12 +19,8 @@ struct ContentView: View {
         }
         .padding()
         .onAppear {
-            for number in numbers {
-                if number.isMultiple(of: 2) {
-                    evens.append(number)
-                    print(number)
-                }
-            }
+            evens = numbers.filter({$0.isMultiple(of: 2)})
+            print(evens)
         }
     }
 }
