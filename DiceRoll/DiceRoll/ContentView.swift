@@ -20,7 +20,6 @@ struct ContentView: View {
             Form {
                 Section {
                     VStack {
-                        Text("Selected Dice Sides")
                         Picker("Number of Sides", selection: $selectedSides) {
                             ForEach(sideDices, id: \.self) { side in
                                 Text("\(side)-sided").tag(side)
