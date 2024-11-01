@@ -11,6 +11,7 @@
 		2AD9520F2CD4735C00C04ED5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD9520E2CD4735C00C04ED5 /* ContentView.swift */; };
 		2AD952112CD4735D00C04ED5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AD952102CD4735D00C04ED5 /* Assets.xcassets */; };
 		2AD952142CD4735D00C04ED5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AD952132CD4735D00C04ED5 /* Preview Assets.xcassets */; };
+		2AD9521B2CD4D61000C04ED5 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD9521A2CD4D61000C04ED5 /* StoreManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		2AD9520E2CD4735C00C04ED5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2AD952102CD4735D00C04ED5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2AD952132CD4735D00C04ED5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2AD9521A2CD4D61000C04ED5 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				2AD9520C2CD4735C00C04ED5 /* DiceRollApp.swift */,
 				2AD9520E2CD4735C00C04ED5 /* ContentView.swift */,
+				2AD9521A2CD4D61000C04ED5 /* StoreManager.swift */,
 				2AD952102CD4735D00C04ED5 /* Assets.xcassets */,
 				2AD952122CD4735D00C04ED5 /* Preview Content */,
 			);
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AD9521B2CD4D61000C04ED5 /* StoreManager.swift in Sources */,
 				2AD9520F2CD4735C00C04ED5 /* ContentView.swift in Sources */,
 				2AD9520D2CD4735C00C04ED5 /* DiceRollApp.swift in Sources */,
 			);

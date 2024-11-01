@@ -15,6 +15,7 @@ struct ContentView: View {
     private var roledDices: [Int] = Array(4...8)
     @State private var totalRoledDice = 4
     @State private var resultRoledDice: [Int] = [0]
+    let storageManager: iStorageManager = StorageManager()
     var body: some View {
         NavigationStack {
             Form {
@@ -40,16 +41,36 @@ struct ContentView: View {
             }
             .navigationTitle("DiceRolls")
         }
+        .onAppear {
+            loadSavedData()
+        }
     }
     
     private func rollTheDice() {
         totalRoledDice = roledDices.randomElement() ?? 4
         resultRoledDice = []
-        for i in 0..<totalRoledDice {
+        for _ in 0..<totalRoledDice {
             let result = sideDices.randomElement() ?? 4
             resultRoledDice.append(result)
         }
-        
+        saveData()
+    }
+    
+    private func saveData() {
+        let dice = DiceResult(selectedSides: selectedSides, totalRoledDice: totalRoledDice, resultRoledDice: resultRoledDice)
+        storageManager.save(dice)
+    }
+    
+    private func loadSavedData() {
+        if let data = storageManager.load() {
+            totalRoledDice = data.totalRoledDice
+            resultRoledDice = data.resultRoledDice
+            selectedSides = data.selectedSides
+        } else {
+            totalRoledDice = 4
+            resultRoledDice = [0]
+            selectedSides = 4
+        }
     }
 }
 
