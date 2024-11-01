@@ -8,19 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
-    let numbers = [1,2,3,4,5]
-    @State var evens = [Int]()
+    var sideDices: [Int] {
+        Array(4...100).filter( {$0 % 2 == 0})
+    }
+    @State private var selectedSides = 4
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
-        .onAppear {
-            evens = numbers.filter({$0.isMultiple(of: 2)})
-            print(evens)
+        NavigationStack {
+            Form {
+                Section {
+                    VStack {
+                        Text("Selected Dice Sides")
+                        Picker("Number of Sides", selection: $selectedSides) {
+                            ForEach(sideDices, id: \.self) { side in
+                                Text("\(side)-sided").tag(side)
+                            }
+                        }
+                        .pickerStyle(.navigationLink)
+                    }
+                }
+            }
+            .navigationTitle("DiceRolls")
         }
     }
 }
