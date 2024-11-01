@@ -50,7 +50,7 @@ struct ContentView: View {
         totalRoledDice = roledDices.randomElement() ?? 4
         resultRoledDice = []
         for _ in 0..<totalRoledDice {
-            let result = sideDices.randomElement() ?? 4
+            let result = Array(1...selectedSides).randomElement() ?? 4
             resultRoledDice.append(result)
         }
         saveData()
