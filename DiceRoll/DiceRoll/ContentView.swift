@@ -12,6 +12,9 @@ struct ContentView: View {
         Array(4...100).filter( {$0 % 2 == 0})
     }
     @State private var selectedSides = 4
+    private var roledDices: [Int] = Array(4...8)
+    @State private var totalRoledDice = 4
+    @State private var resultRoledDice: [Int] = [0]
     var body: some View {
         NavigationStack {
             Form {
@@ -26,9 +29,28 @@ struct ContentView: View {
                         .pickerStyle(.navigationLink)
                     }
                 }
+                Section {
+                    Text("Roled dices: \(totalRoledDice) times")
+                    Text("Total roled dices: \(resultRoledDice.map { "\($0)" }.joined(separator: " + ")) \(resultRoledDice == [0] ? "" : "is \(resultRoledDice.reduce(0, +))") ")
+                }
+                Section {
+                    Button("Roll The Dice") {
+                        rollTheDice()
+                    }
+                }
             }
             .navigationTitle("DiceRolls")
         }
+    }
+    
+    private func rollTheDice() {
+        totalRoledDice = roledDices.randomElement() ?? 4
+        resultRoledDice = []
+        for i in 0..<totalRoledDice {
+            let result = sideDices.randomElement() ?? 4
+            resultRoledDice.append(result)
+        }
+        
     }
 }
 
