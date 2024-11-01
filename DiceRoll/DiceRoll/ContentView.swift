@@ -37,6 +37,7 @@ struct ContentView: View {
                     Button("Roll The Dice") {
                         rollTheDice()
                     }
+                    .sensoryFeedback(.impact(flexibility: .soft), trigger: resultRoledDice)
                 }
             }
             .navigationTitle("DiceRolls")
