@@ -5,6 +5,7 @@
 //  Created by Galih Samudra on 01/11/24.
 //
 
+import Combine
 import SwiftUI
 
 struct ContentView: View {
@@ -12,10 +13,15 @@ struct ContentView: View {
         Array(4...100).filter( {$0 % 2 == 0})
     }
     @State private var selectedSides = 4
-    private var roledDices: [Int] = Array(4...8)
     @State private var totalRoledDice = 4
     @State private var resultRoledDice: [Int] = [0]
+    @State private var timer: AnyCancellable?
+    @State private var isRollingDice = false
+    
     let storageManager: iStorageManager = StorageManager()
+    private var roledDices: [Int] = Array(4...8)
+    
+    
     var body: some View {
         NavigationStack {
             Form {
@@ -31,13 +37,18 @@ struct ContentView: View {
                 }
                 Section {
                     Text("Roled dices: \(totalRoledDice) times")
-                    Text("Total roled dices: \(resultRoledDice.map { "\($0)" }.joined(separator: " + ")) \(resultRoledDice == [0] ? "" : "is \(resultRoledDice.reduce(0, +))") ")
+                    if isRollingDice {
+                        Text("Result Roled dices: \(resultRoledDice.map{ "\($0)" }.joined(separator: " + ")  )")
+                    } else {
+                        Text("Total roled dices: \(resultRoledDice.map { "\($0)" }.joined(separator: " + ")) \(resultRoledDice == [0] ? "" : "is \(resultRoledDice.reduce(0, +))") ")
+                    }
                 }
                 Section {
                     Button("Roll The Dice") {
                         rollTheDice()
                     }
                     .sensoryFeedback(.impact(flexibility: .soft), trigger: resultRoledDice)
+                    .disabled(isRollingDice)
                 }
             }
             .navigationTitle("DiceRolls")
@@ -48,12 +59,27 @@ struct ContentView: View {
     }
     
     private func rollTheDice() {
+        isRollingDice = true
         totalRoledDice = roledDices.randomElement() ?? 4
         resultRoledDice = []
-        for _ in 0..<totalRoledDice {
-            let result = Array(1...selectedSides).randomElement() ?? 4
-            resultRoledDice.append(result)
+        if timer != nil {
+            timer?.cancel()
         }
+        timer = Timer.publish(every: 1, on: .main, in: .common)
+            .autoconnect()
+            .sink { _ in
+                if resultRoledDice.count >= totalRoledDice {
+                    timer?.cancel()
+                    endRollDice()
+                } else {
+                    let result = Array(1...selectedSides).randomElement() ?? 4
+                    resultRoledDice.append(result)
+                }
+            }
+    }
+    
+    private func endRollDice() {
+        isRollingDice = false
         saveData()
     }
     
